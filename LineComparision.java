@@ -1,15 +1,28 @@
 import java.util.Scanner;
+public class LineComparision implements Comparable<LineComparision> {
+    private double x1, y1, x2, y2;
 
-public class LineComparision {
     private static double LengthOfLine(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
-    private double x1, y1, x2, y2;
     public LineComparision(double x1, double y1, double x2, double y2) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+    }
+    @Override
+    public int compareTo(LineComparision otherLine) {
+        double length1 = LengthOfLine(x1, y1, x2, y2);
+        double length2 = LengthOfLine(otherLine.x1, otherLine.y1, otherLine.x2, otherLine.y2);
+
+        if (length1 == length2) {
+            return 0; 
+        } else if (length1 < length2) {
+            return -1; 
+        } else {
+            return 1;
+        }
     }
     @Override
     public boolean equals(Object obj) {
@@ -42,12 +55,33 @@ public class LineComparision {
 
         LineComparision line1 = new LineComparision(x1,y1, x2, y2);
         LineComparision line2= new LineComparision(x2,y2, x1, y2);
-    
+        LineComparision line3 = new LineComparision(x1,y1,x2,y2);
+
+        int comparison1to2 = line1.compareTo(line2);
+        int comparison1to3 = line1.compareTo(line3);
 
         System.out.println("Line 1 equals Line 2: " + line1.equals(line2));
+
+        if (comparison1to2 == 0) {
+            System.out.println("Line 1 is equal to Line 2");
+        } else if (comparison1to2 < 0) {
+            System.out.println("Line 1 is shorter than Line 2");
+        } else {
+            System.out.println("Line 1 is longer than Line 2");
+        }
+
+        if (comparison1to3 == 0) {
+            System.out.println("Line 1 is equal to Line 3");
+        } else if (comparison1to3 < 0) {
+            System.out.println("Line 1 is shorter than Line 3");
+        } else {
+            System.out.println("Line 1 is longer than Line 3");
+        }
+    }
+        
        
     }
-}
+
     
 
     
